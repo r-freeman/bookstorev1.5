@@ -8,6 +8,12 @@ use App\Book;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,11 @@ class BookController extends Controller
     public function index()
     {
         //
+        $books = Book::all();
+
+        return view('admin.books.index')->with([
+            'books' => $books
+        ]);
     }
 
     /**
@@ -69,6 +80,10 @@ class BookController extends Controller
     public function show($id)
     {
         //
+        $book = Book::findOrFail($id);
+        return view('admin.books.show')->with([
+            'book'  => $book
+        ]);
     }
 
     /**
@@ -80,6 +95,10 @@ class BookController extends Controller
     public function edit($id)
     {
         //
+        $book = Book::findOrFail($id);
+        return view('admin.books.edit')->with([
+            'book'  => $book
+        ]);
     }
 
     /**
@@ -91,7 +110,27 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $book = Book::findOrFail($id);
         //
+        $request->validate([
+            'title'     =>  'required|max:191',
+            'author'    =>  'required|max:191',
+            'publisher' =>  'required|max:191',
+            'year'      =>  'required|integer|min:1900',
+            'isbn'      =>  'required|alpha_num|size:13|unique:books,isbn,'.$book->id,
+            'price'     =>  'required|numeric|min:0',
+        ]);
+
+        $book->title = $request->input('title');
+        $book->author = $request->input('author');
+        $book->publisher = $request->input('publisher');
+        $book->year = $request->input('year');
+        $book->isbn = $request->input('isbn');
+        $book->price = $request->input('price');
+
+        $book->save();
+
+        return redirect()->route('admin.books.index');
     }
 
     /**
@@ -103,5 +142,9 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+        $book = Book::findOrFail($id);
+        $book->delete();
+
+        return redirect()->route('admin.books.index');
     }
 }
