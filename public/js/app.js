@@ -36985,8 +36985,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ryan/Google Drive/devilbox/data/www/bookstore/bookstore/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/ryan/Google Drive/devilbox/data/www/bookstore/bookstore/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/ryan/GDrive/devilbox/data/www/bookstorev1/bookstorev1/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/ryan/GDrive/devilbox/data/www/bookstorev1/bookstorev1/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
